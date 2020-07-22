@@ -42,8 +42,7 @@ import {withRouter, Redirect} from 'react-router-dom';
                then redirects to the home page. 
             */ 
            e.preventDefault();
-           <Redirect push to='/home'/>
-           //this.props.history.push('/home')
+           this.props.history.push('/home')
            const data={
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
