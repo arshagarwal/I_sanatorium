@@ -1,0 +1,17 @@
+{
+  "name": "back_end",
+  "version": "1.0.0",
+  "description": "back_end for I sanatorium",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "server": "nodemon server.js"
+  },
+  "author": "Arsh Agarwal",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.24"
+  }
+}
