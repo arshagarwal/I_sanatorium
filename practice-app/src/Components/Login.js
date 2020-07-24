@@ -10,7 +10,6 @@ import {withRouter, Redirect} from 'react-router-dom';
             username:'',
             password:''
         }
-        this.handle_login=this.handle_login.bind(this);
         
     }
     
@@ -28,35 +27,52 @@ import {withRouter, Redirect} from 'react-router-dom';
         // make a fetch request here
         const url="http://localhost:3000/add_cred" // add url here
         const response = await fetch(url, {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data) // body data type must match "Content-Type" header
           });
-          return response.json(); // parses JSON response into native JavaScript objects
+        response.json().then(data=>{
+            console.log(data.error)
+            if(data.error){
+                alert("Username exists")
+            }
+            else{
+                // handle conditional login doesn't work for now 
+                return <h1>Account succesfully created</h1>;
+                    
+                
+            }
+        }) // parses JSON response into native JavaScript objects
         }
-        handle_login(e){
+        async handle_login(e){
             /* Makes a post request to the server
                the server authenticates user credentials
                then redirects to the home page. 
             */ 
            e.preventDefault();
-           <Redirect push to='/home'/>
-           //this.props.history.push('/home')
            const data={
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
         }
-           /*const url="http://localhost:3000/verify";
-           const response = await fetch(url, {
+           console.log(data) 
+            const url="http://localhost:3000/verify";
+            const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(data) // body data type must match "Content-Type" header
           });
-          //data=response.json().then((data)=>{return data;})*/ 
+          const cred = response.json().then((data)=>{
+              console.log(data)
+              if(data.verified==true){
+                  this.props.history.push('/home')
+              }
+            }  )
+         
+         
          
           
         }
@@ -82,7 +98,7 @@ import {withRouter, Redirect} from 'react-router-dom';
                     <input type='password' style={{margin:'10px'}} id='pass'></input>
                     <input type='submit' style={{margin:'10px', marginTop:'20px'}} value='Log in' onClick={(e)=>this.handle_login(e)}></input>
                     <input type='submit' style={{margin:'10px', marginTop:'10px'}} value='Sign up' onClick={(e)=>this.handle_signup(e)}></input>
-                    <button value='Log in' onClick={(e)=>this.handle_login(e)}  style={{marginTop:'10px',height:'20px'}}></button>
+                    
                 </form>
 
             </div>

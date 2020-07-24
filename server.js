@@ -10,27 +10,69 @@ app.use(cors())
 app.use(express.json())
 
 
-/*credentials.find({},(err,cred)=>{
+/*credentials.deleteMany({},err=>{
     if(err){
-        console.log(err)
+        console.error(err)
+    }
+})*/
+credentials.find({username:'arsh'},(err,cred)=>{
+    if(err){
+        console.error(err)
     }
     else{
-        console.log(`cred are ${cred}`)
-        return cred;
+       console.log(`number of user credentials are ${cred.length}`)
     }
 
-})*/
+})
 
-app.post('/add_cred',(req,res)=>{
-    const data=req.body 
-    console.log(data)
-    const new_user=credentials({username:data.username,password:data.password})
-
-    new_user.save((err,new_user)=>{
+app.put('/add_cred',(req,res)=>{
+    const data=req.body
+    credentials.find({username:data.username},(err,cred)=>{
         if(err){
             console.error(err)
         }
+        else{
+            if(cred.length==0){
+            const new_user=new credentials()
+            new_user.username=data.username
+            new_user.password=data.password
+            console.log(new_user)
+        
+            new_user.save((err,new_user)=>{
+                if(err){
+                    console.error(err)
+                }
+            })
+            res.json({error:false})
+        }
+            else{
+                res.json({error:true})
+            }
+
+        }
+    }) 
+   
+})
+// post request that authenticates user
+app.post('/verify',(req,res)=>{
+    const data=req.body
+    console.log(`login data is`)
+    console.log(data)
+    credentials.find({username:data.username},(err,cred)=>{
+       if(err){
+           console.error(err)
+       }
+       else{
+           console.log(`credentials from database is ${cred.length}`)
+           if(cred.length!=0 && data.password==cred[0].password){
+               res.json({verified:true})
+           }
+           else{
+               res.json({verified:false})
+           }
+       }
     })
+
 })
 
 

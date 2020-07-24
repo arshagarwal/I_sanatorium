@@ -10,7 +10,9 @@ db.once('open',()=>{
 })
 
 const credentials_schema=new mongoose.Schema({
-    user_name: String,
+    username: {type: String,
+               unique:true
+             },
     password: String
 })
 const credentials=mongoose.model('credentials',credentials_schema)
