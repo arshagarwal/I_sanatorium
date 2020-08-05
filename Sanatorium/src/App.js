@@ -5,13 +5,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import SearchBar from './Components/Search_bar'
 import Header from './Components/Header.js'
-import Newsfeed from './Components/News_feed.js'
 import Login from './Components/Login.js'
 import Home from './Components/home.js'
+import Profile from './Components/Profile.js'
 
-class App extends Component {
+export default class App extends Component {
 
 
   render() {
@@ -21,22 +20,27 @@ class App extends Component {
           <div className='App' style={{marginTop:'0px'}}>
             <div className='container'>
               <Header></Header>
-                
+
+            {/* This is rendered in the index page */}      
             <Route exact style={{marginTop:'0px'}} path='/' render={(props)=>(
-      
        <div style={{display:'flex',justifyContent:'center'}}>
+       
          {/* add  a  background in this div */}
        <Link to='/login' style={{color:'#000000', fontSize:'large',paddingRight:'10px' }}> Login </Link>
-       
        <Link to='/' style={{color:'#000000', fontSize:'large' }}> Index </Link>
+       
        </div>
  
    
-    )}></Route>
+    )}>
+
+    </Route>
     
 
       <Route exact path='/home' component={Home}></Route>
       <Route  exact path='/login' component={Login}></Route>
+      <Route exact path='/Profile' component={Profile}></Route>
+      
       </div>   
       </div>  
            </Router>
@@ -50,4 +54,4 @@ class App extends Component {
 
 }
 
-export default App;
+

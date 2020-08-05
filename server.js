@@ -3,7 +3,7 @@ const app=express()
 const path=require('path')
 var http=require('http')
 const server=http.createServer(app)
-const port=3000
+const port=2000
 const credentials=require('./databases/user_cred')
 const cors=require('cors')
 app.use(cors())
