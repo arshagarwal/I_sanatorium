@@ -24,7 +24,7 @@ import {withRouter, Redirect} from 'react-router-dom';
         }
         console.log(data)
         // make a fetch request here
-        const url="http://localhost:2000/add_cred" // add url here
+        const url="http://localhost:8080/add_cred" // add url here
         const response = await fetch(url, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -51,13 +51,11 @@ import {withRouter, Redirect} from 'react-router-dom';
                then redirects to the home page. 
             */ 
            e.preventDefault();
-           this.props.history.push('/home')
            const data={
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
         }
-           console.log(data) 
-            const url="http://localhost:2000/verify";
+            const url="http://localhost:8080/verify";
             const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -65,15 +63,15 @@ import {withRouter, Redirect} from 'react-router-dom';
             },
             body: JSON.stringify(data) // body data type must match "Content-Type" header
           });
-          const cred = response.json().then((data)=>{
-              console.log(data)
-              if(data.verified==true){
-                  this.props.history.push('/home')
+          const cred = response.json().then((Data)=>{
+              if(Data.verified==true){
+                this.props.history.push({
+                    pathname:'/home',
+                state:{user:data.username}
+             })
+                
               }
             }  )
-         
-         
-         
           
         }
     componentDidMount(){

@@ -22,10 +22,11 @@ export default class home  extends Component {
         const style={display:'flex', 
         flexDirection:'row' 
     }
+    console.log(`user in home is ${this.props.location.state.user}`)
         return (
             <div style={style}>
-            <div style ={{flex:0.5, height:'400px'             }}>
-            <Options></Options> 
+            <div style ={{flex:0.5, height:'400px'}}>
+            <Options user={this.props.location.state.user}></Options> 
                 </div>    
             <div style={{flex:10}}>
             <SearchBar  ></SearchBar> 

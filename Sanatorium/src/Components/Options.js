@@ -18,7 +18,11 @@ class Options extends Component {
            this.props.history.push('/home')
         }
         else{
-        this.props.history.push('/profile')
+            this.props.history.push({
+                pathname:'/Profile',
+            state:{user:this.props.user}
+         })
+            
         }
 
     }
@@ -27,6 +31,7 @@ class Options extends Component {
     }
     
     render() {
+        console.log(`user in options is ${this.props.user}`)
         var style={
            display:'flex',
            flexDirection:'column',

@@ -3,27 +3,16 @@ const app=express()
 const path=require('path')
 var http=require('http')
 const server=http.createServer(app)
-const port=2000
+const port=process.env.port || 8080
 const credentials=require('./databases/user_cred')
+const user_profile=require('./databases/user_profile')
 const cors=require('cors')
+const { update } = require('./databases/user_cred')
 app.use(cors())
 app.use(express.json())
+app.use(express.static(path.join(__dirname, "/Sanatorium/build")));
 
 
-/*credentials.deleteMany({},err=>{
-    if(err){
-        console.error(err)
-    }
-})*/
-credentials.find({username:'arsh'},(err,cred)=>{
-    if(err){
-        console.error(err)
-    }
-    else{
-       console.log(`number of user credentials are ${cred.length}`)
-    }
-
-})
 
 app.put('/add_cred',(req,res)=>{
     const data=req.body
@@ -63,7 +52,7 @@ app.post('/verify',(req,res)=>{
            console.error(err)
        }
        else{
-           console.log(`credentials from database is ${cred.length}`)
+           
            if(cred.length!=0 && data.password==cred[0].password){
                res.json({verified:true})
            }
@@ -74,9 +63,67 @@ app.post('/verify',(req,res)=>{
     })
 
 })
+app.post('/get_disease',(req,res)=>{
+    const data=req.body;
+    const user=data.user
+    console.log(`${user} is fetching disease from the database`)
+    user_profile.find({username:user},(err,profile)=>{
+        if(err){
+            console.error(err)
+        }
+        else{
+            console.log(`userprofile is ${profile}`)
+            res.json(profile);
+        }
+    })
+
+
+})
+
+app.put('/add_disease',(req,res)=>{
+    const data=req.body
+    const user=data.user
+    const new_disease=data.diseases
+    console.log(data.diseases)
+    user_profile.find({username:user},(err,profile)=>{
+        if(err){
+            console.error(err)
+        }
+        else{
+            if(profile.length==0 ){
+                // make a new entry for the user
+                const new_entry=user_profile()
+                new_entry.username=user
+                new_entry.diseases=data.diseases
+                new_entry.save((err,new_entry)=>{
+                    if(err){
+                        console.error(err)
+                    }
+                    else{
+                        console.log(new_entry)
+                    }
+
+                })
+            }
+            else{
+                user_profile.findOneAndUpdate({username:user},{diseases:data.diseases},{new:true,useFindAndModify:false})
+                .then(doc=>{
+               console.log(doc.diseases)
+                   })
+            }
+        }
+     })
+    
+   
+})
+app.get("/*", (req, res) => {
+    
+    res.sendFile(path.join(__dirname, "/Sanatorium/build/index.html"));
+  });
 
 
 
 app.listen(port,()=>{
+    
     console.log(`server running on port ${port}`)
 })
