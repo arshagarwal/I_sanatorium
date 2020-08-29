@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SearchBar from './Search_bar'
 import Header from './Header.js'
 import Newsfeed from './News_feed.js'
+import Options from './Options'
 
 export default class home  extends Component {
    
@@ -17,15 +18,27 @@ export default class home  extends Component {
   }
 
     render() {
+
+        const style={display:'flex', 
+        flexDirection:'row' 
+    }
+    console.log(`user in home is ${this.props.location.state.user}`)
         return (
-            <React.Fragment>
+            <div style={style}>
+            <div style ={{flex:0.5, height:'400px'}}>
+            <Options user={this.props.location.state.user}></Options> 
+                </div>    
+            <div style={{flex:10}}>
+            <SearchBar  ></SearchBar> 
+            </div>
+            
+            </div>
             
             
-             <SearchBar></SearchBar>
-             <Newsfeed posts={this.state.posts}></Newsfeed>
+             
             
             
-            </React.Fragment>
+            
         )
     }
 }

@@ -7,14 +7,13 @@ import {withRouter, Redirect} from 'react-router-dom';
     constructor(props){
         super(props)
         this.state={
-            username:'',
-            password:''
+            signedup:false
         }
         
     }
     
      
-    async handle_signup(e){
+    async  handle_signup(e){
         /* Makes a post request to the server
            The server then adds the credentials to the database.
         */
@@ -25,7 +24,7 @@ import {withRouter, Redirect} from 'react-router-dom';
         }
         console.log(data)
         // make a fetch request here
-        const url="http://localhost:3000/add_cred" // add url here
+        const url="http://localhost:8080/add_cred" // add url here
         const response = await fetch(url, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -40,7 +39,7 @@ import {withRouter, Redirect} from 'react-router-dom';
             }
             else{
                 // handle conditional login doesn't work for now 
-                return <h1>Account succesfully created</h1>;
+                this.setState({signedup:true})
                     
                 
             }
@@ -52,16 +51,11 @@ import {withRouter, Redirect} from 'react-router-dom';
                then redirects to the home page. 
             */ 
            e.preventDefault();
-<<<<<<< HEAD
-=======
-           this.props.history.push('/home')
->>>>>>> 270c27789f54d3dc6eabecc9c1265bfb49eace42
            const data={
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
         }
-           console.log(data) 
-            const url="http://localhost:3000/verify";
+            const url="http://localhost:8080/verify";
             const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -69,15 +63,15 @@ import {withRouter, Redirect} from 'react-router-dom';
             },
             body: JSON.stringify(data) // body data type must match "Content-Type" header
           });
-          const cred = response.json().then((data)=>{
-              console.log(data)
-              if(data.verified==true){
-                  this.props.history.push('/home')
+          const cred = response.json().then((Data)=>{
+              if(Data.verified==true){
+                this.props.history.push({
+                    pathname:'/home',
+                state:{user:data.username}
+             })
+                
               }
             }  )
-         
-         
-         
           
         }
     componentDidMount(){
@@ -94,7 +88,7 @@ import {withRouter, Redirect} from 'react-router-dom';
     height:'280px'}
     console.log(this.props)
         return (
-            <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: '100px'}}>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'center',marginTop: '100px',flexDirection:'column'}}>
                 <form style={form_style}  onSubmit={(e)=>this.handle_submit(e)}>
                     <label htmlFor = 'user_name' style={{color:'#FFFAFA',margin:'10px',alignSelf:'flex-start'}}> Username </label>
                     <input type={'text'} id='user_name' style={{margin:'10px'}} ></input>
@@ -102,10 +96,10 @@ import {withRouter, Redirect} from 'react-router-dom';
                     <input type='password' style={{margin:'10px'}} id='pass'></input>
                     <input type='submit' style={{margin:'10px', marginTop:'20px'}} value='Log in' onClick={(e)=>this.handle_login(e)}></input>
                     <input type='submit' style={{margin:'10px', marginTop:'10px'}} value='Sign up' onClick={(e)=>this.handle_signup(e)}></input>
-                    
                 </form>
-
+                <h3> {this.state.signedup ? 'New Account Created' : null }</h3>
             </div>
+           
         )
     }
     

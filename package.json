@@ -5,13 +5,17 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix Sanatorium",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Arsh Agarwal",
   "license": "MIT",
   "dependencies": {
+    "concurrently": "^5.3.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.9.24"
+    "mongoose": "^5.9.24",
+    "nodemon": "^2.0.4"
   }
 }
