@@ -15,7 +15,11 @@ class Options extends Component {
     navigate(e) {
         e.preventDefault()
         if(e.target.className==='home'){
-           this.props.history.push('/home')
+            this.props.history.push({
+                pathname:'/home',
+            state:{user:this.props.user}
+         })
+           //this.props.history.push('/home')
         }
         else{
             this.props.history.push({
@@ -36,13 +40,14 @@ class Options extends Component {
            display:'flex',
            flexDirection:'column',
            alignContent:'space-between',
-           paddingTop:'10px'
+           paddingTop:'10px',
+           
 
         }
         var button_style={ marginBottom:'20px', 
         backgroundColor:'#FFFFFF', 
         fontStyle:'italic', 
-        fontSize:'15px',
+        fontSize:'20px',
         border:'none',
        
     }

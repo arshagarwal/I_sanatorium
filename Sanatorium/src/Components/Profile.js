@@ -8,8 +8,12 @@ export default class Profile extends Component {
         return (
            
             <div style={{display:'flex'}} >
-                <Options user={this.props.location.state.user}></Options>
-                <History user={this.props.location.state.user}></History>
+                <div style={{flex:0.5}}>
+                    <Options user={this.props.location.state.user}></Options></div>
+                <div style={{flex:10}}>
+                <History  user={this.props.location.state.user}></History>
+                </div>
+                
             </div>
         )
     }
