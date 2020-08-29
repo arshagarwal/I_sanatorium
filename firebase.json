@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "Sanatorium/build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites":[{
+      "source":"**",
+      "run":{
+        "serviceId":"cloudrunservice2"
+      }
+    }]
+  }
+}
