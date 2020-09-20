@@ -5,7 +5,7 @@ import {
     Link
   } from "react-router-dom";
   import {withRouter, Redirect} from 'react-router-dom';
-  import Profile from './Profile'
+  
 
 
 class Search_bar extends Component {

@@ -24,7 +24,7 @@ import {withRouter, Redirect} from 'react-router-dom';
         }
         console.log(data)
         // make a fetch request here
-        const url="http://localhost:8080/add_cred" // add url here
+        const url="http://localhost:8080/cred/add_cred" // add url here
         const response = await fetch(url, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
@@ -55,7 +55,7 @@ import {withRouter, Redirect} from 'react-router-dom';
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
         }
-            const url="http://localhost:8080/verify";
+            const url="http://localhost:8080/cred/verify";
             const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {

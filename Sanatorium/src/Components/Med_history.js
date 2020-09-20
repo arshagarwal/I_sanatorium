@@ -1,3 +1,5 @@
+
+// med_history page
 import React, { Component } from 'react'
 
 export default class Med_history extends Component {
@@ -27,7 +29,7 @@ export default class Med_history extends Component {
         
        
        // making a post request to add data to database
-       const url="http://localhost:8080/add_disease";
+       const url="http://localhost:8080/profile/add_disease";
         fetch(url, {
         method: 'PUT',
         headers: {
@@ -39,7 +41,7 @@ export default class Med_history extends Component {
     }
     componentDidMount() {
         // fetching the diseases from the database
-        const url="http://localhost:8080/get_disease";
+        const url="http://localhost:8080/profile/get_disease";
         console.log(`user  in component did mount is ${this.props.user}`)
         const data={user:this.props.user}
         fetch(url, {
@@ -82,9 +84,8 @@ export default class Med_history extends Component {
             diseases: this.state.hist
         }
         
-       
        // making a post request to add data to database
-       const url="http://localhost:8080/add_disease";
+       const url="http://localhost:8080/profile/add_disease";
         fetch(url, {
         method: 'PUT',
         headers: {
@@ -92,7 +93,9 @@ export default class Med_history extends Component {
          },
         body: JSON.stringify(data),
            })
-         
+        
+       
+       
     }
     
 
@@ -133,8 +136,8 @@ export default class Med_history extends Component {
                       <div style={{flex:5,border:'1px solid #DCDCDC',fontStyle:'italic'}}>
                           <p>{disease[1]}</p>    
                       </div>
-                      <div style={{flex:0.5}}>
-                          <button id={disease[0]} style={{backgroundColor:'#FFFFFF',fontStyle:'italic'}} onClick={(e)=>this.delete_dis(e)}>Delete</button>
+                      <div style={{flex:0.5,justifyContent:'center',alignItems:'center',paddingTop:'5px'}}>
+                          <button id={disease[0]} style={{backgroundColor:'#FFFFFF',fontStyle:'italic',border:'none',fontSize:'20px'}} onClick={(e)=>this.delete_dis(e)}>Delete</button>
                       </div>
 
 

@@ -14,7 +14,14 @@ const user_profile_schema=new mongoose.Schema({
     username: {type: String,
                unique:true
              },
-    diseases:[]
+    diseases:[], // saved as [disease_name, description]
+    followers:[],
+    posts:{
+     Date:{type:Date},
+     Description:{type:String},
+     //Image:{type:Image},   
+    }
+
 })
 const user_profile=mongoose.model('user_profile',user_profile_schema)
 

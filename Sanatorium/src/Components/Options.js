@@ -21,10 +21,17 @@ class Options extends Component {
          })
            //this.props.history.push('/home')
         }
-        else{
+        else if(e.target.className==='Medical History') {
             this.props.history.push({
-                pathname:'/Profile',
+                pathname:'/history',
             state:{user:this.props.user}
+         })
+            
+        }
+        else if(e.target.className==='add_post') {
+            this.props.history.push({
+                pathname:'/add_post',
+            state: {user:this.props.user}
          })
             
         }
@@ -55,10 +62,14 @@ class Options extends Component {
         return (
             <div style={style}>
                 {/* fix hover throws error for now */}
-             <button className={'profile'} style ={this.button_style} onClick={(e)=> this.navigate(e)} onMouseEnter={(e)=>this.hover(e)}> Profile</button>
-             <button className = {'home'} style={this.button_style} onClick={(e)=> this.navigate(e)}>Home</button>
-                
-            </div>
+            <button className = {'profile'} style={this.button_style} onClick={(e)=> this.navigate(e)}>Profile</button> 
+            <button className = {'home'} style={this.button_style} onClick={(e)=> this.navigate(e)}>Home</button>  
+            <button className={'Medical History'} style ={this.button_style} onClick={(e)=> this.navigate(e)} onMouseEnter={(e)=>this.hover(e)}> Med History</button>
+            <button className = {'chat'} style={this.button_style} onClick={(e)=> this.navigate(e)}>Chat</button>
+            <button className = {'add_post'} style={this.button_style} onClick={(e)=> this.navigate(e)}>Add Post</button>
+             
+             
+        </div>
         )
     }
     
