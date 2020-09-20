@@ -55,7 +55,9 @@ import {withRouter, Redirect} from 'react-router-dom';
             username:document.getElementById('user_name').value,
             password:document.getElementById('pass').value
         }
-            const url="http://localhost:8080/cred/verify";
+
+            const url="/verify";
+
             const response = await fetch(url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             headers: {
