@@ -24,7 +24,7 @@ import {withRouter, Redirect} from 'react-router-dom';
         }
         console.log(data)
         // make a fetch request here
-        const url="http://localhost:8080/cred/add_cred" // add url here
+        const url="/add_cred" // add url here
         const response = await fetch(url, {
             method: 'PUT', // *GET, POST, PUT, DELETE, etc.
             headers: {
